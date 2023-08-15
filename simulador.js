@@ -1,4 +1,4 @@
-//Defino constantes con los precios
+//Defino variables con los precios
 let precioPolarizado = 20000;
 let precioAntiBandalico = 25000;
 let resultado = 0;
