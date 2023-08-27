@@ -33,11 +33,7 @@ class Vehiculo {
         resultado = ventanas * precioAntiBandalico;
         break;
     }
-    return resultado;
-  }
-  //Defino el método para mostrar la cotización solicitada
-  mostrarCotizacion(resultado) {
-    alert(
+    return alert(
       "El total de la cotización por su vehículo es: ARS " +
         resultado +
         " + IVA"
@@ -92,8 +88,6 @@ for (let clave in vehiculo) {
 if (tamanio == "Grande+" || tamanio == "Camiones") {
   alert("Para este tamaño, por favor comunicarse a ventas@hyperion.com.ar");
 } else {
-  //Llamo al método para calcular la cotización
+  //Llamo al método para calcular y mostrar la cotización
   vehiculo.calcularPrecio(tamanio, ventanas, lamina);
-  //Llamo al método para mostrar el resultado de la cotización
-  vehiculo.mostrarCotizacion(resultado);
 }
