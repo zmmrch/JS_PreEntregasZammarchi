@@ -3,91 +3,97 @@ let precioPolarizado = 20000;
 let precioAntiBandalico = 25000;
 let resultado = 0;
 
+//Defino la clase "Vehiculo"
+class Vehiculo {
+  //Armo el contructor con los atributos de la clase
+  constructor(tamanio, ventanas, lamina) {
+    this.tamanio = tamanio;
+    this.ventanas = ventanas;
+    this.lamina = lamina;
+  }
+  //Defino el método para calcular el precio
+  calcularPrecio(tamanio, ventanas, lamina) {
+    switch (lamina) {
+      case "Polarizado":
+        if (tamanio == "Mediano") {
+          precioPolarizado = precioPolarizado + (precioPolarizado * 5) / 100;
+        } else if (tamanio == "Grande") {
+          precioPolarizado = precioPolarizado + (precioPolarizado * 7) / 100;
+        }
+        resultado = ventanas * precioPolarizado;
+        break;
+      case "Anti-bandálico":
+        if (tamanio == "Mediano") {
+          precioAntiBandalico =
+            precioAntiBandalico + (precioAntiBandalico * 5) / 100;
+        } else if (tamanio == "Grande") {
+          precioAntiBandalico =
+            precioAntiBandalico + (precioAntiBandalico * 7) / 100;
+        }
+        resultado = ventanas * precioAntiBandalico;
+        break;
+    }
+    return resultado;
+  }
+  //Defino el método para mostrar la cotización solicitada
+  mostrarCotizacion(resultado) {
+    alert(
+      "El total de la cotización por su vehículo es: ARS " +
+        resultado +
+        " + IVA"
+    );
+  }
+}
+
 //Defino la variable y pido al usuario que ingrese el tipo de vehículo
-let tamanioVehiculo = prompt(
+let tamanio = prompt(
   "Ingrese tamaño de vehículo (Pequeño/Mediano/Grande/Grande+/Camiones)"
 );
-
 //Validación para que el usuario solo pueda eligir entre esas opciones
 while (
-  tamanioVehiculo != "Pequeño" &&
-  tamanioVehiculo != "Mediano" &&
-  tamanioVehiculo != "Grande" &&
-  tamanioVehiculo != "Grande+" &&
-  tamanioVehiculo != "Camiones"
+  tamanio != "Pequeño" &&
+  tamanio != "Mediano" &&
+  tamanio != "Grande" &&
+  tamanio != "Grande+" &&
+  tamanio != "Camiones"
 ) {
-  tamanioVehiculo = prompt(
+  tamanio = prompt(
     "No ha ingresado el tamaño correcto. Debe ingresar (Pequeño/Mediano/Grande/Grande+/Camiones)"
   );
 }
 
 //Defino la variable y pido al usuario que ingrese la cantidad de ventanas a polarizar
-let cantidadVentanas = parseInt(
-  prompt("Ingrese cantidad de ventanas (del 1 al 10)")
-);
-
+let ventanas = parseInt(prompt("Ingrese cantidad de ventanas (del 1 al 10)"));
 //Validación para que el usuario solo pueda elegir un número entre 1 y 10
-while (cantidadVentanas < 1 || cantidadVentanas > 10) {
-  cantidadVentanas = prompt("Debe ingresar un número del 1 al 10");
+while (ventanas < 1 || ventanas > 10) {
+  ventanas = prompt("Debe ingresar un número del 1 al 10");
 }
 
 //Defino la variable y pido al usuario que ingrese el tipo de lámina
-let tipoLamina = prompt(
-  "Ingrese el tipo de lámina (Polarizado/Anti-bandálico)"
-);
-
+let lamina = prompt("Ingrese el tipo de lámina (Polarizado/Anti-bandálico)");
 //Validación para que el usuario solo pueda elegir entre estos tipos de lámina
-while (tipoLamina != "Polarizado" && tipoLamina != "Anti-bandálico") {
-  tipoLamina = prompt(
+while (lamina != "Polarizado" && lamina != "Anti-bandálico") {
+  lamina = prompt(
     "No ha ingresado el tipo de lámina correcto. Debe ingresar Polarizado o Anti-bandálico"
   );
 }
 
-//Funcion para calcular los precios de polarizados en función del tamaño del vehículo
-function calcularPrecioPolarizado(vehiculo, cantidad, precio) {
-  if (vehiculo == "Mediano") {
-    precio = precio + (precio * 5) / 100;
-  }
-  if (vehiculo == "Grande") {
-    precio = precio + (precio * 7) / 100;
-  }
-  resultado = cantidad * precio;
-}
+//Instancio el objeto
+const vehiculo = new Vehiculo(tamanio, ventanas, lamina);
 
-//Funcion para calcular los precios de anti-bandálicos en función del tamaño del vehículo
-function calcularPrecioAntiBandalico(vehiculo, cantidad, precio) {
-  if (vehiculo == "Mediano") {
-    precio = precio + (precio * 5) / 100;
-  }
-  if (vehiculo == "Grande") {
-    precio = precio + (precio * 7) / 100;
-  }
-  resultado = cantidad * precio;
-}
-
-//Funcion para mostrar el resultado total de la cotización
-function mostrarResultado(mensaje) {
-  alert(
-    "El total de la cotización por su vehículo es: ARS " + mensaje + " + IVA"
-  );
+//Recorro el objeto
+for (let clave in vehiculo) {
+  tamanio = vehiculo.tamanio;
+  ventanas = vehiculo.ventanas;
+  lamina = vehiculo.lamina;
 }
 
 //Mensaje en casos que el tamaño del vehiculo sea Grande+ o Camiones
-if (tamanioVehiculo == "Grande+" || tamanioVehiculo == "Camiones") {
+if (tamanio == "Grande+" || tamanio == "Camiones") {
   alert("Para este tamaño, por favor comunicarse a ventas@hyperion.com.ar");
-}
-
-//Llamado de las funciones
-if (tipoLamina == "Polarizado") {
-  calcularPrecioPolarizado(tamanioVehiculo, cantidadVentanas, precioPolarizado);
-  mostrarResultado(resultado);
-}
-
-if (tipoLamina == "Anti-bandálico") {
-  calcularPrecioAntiBandalico(
-    tamanioVehiculo,
-    cantidadVentanas,
-    precioAntiBandalico
-  );
-  mostrarResultado(resultado);
+} else {
+  //Llamo al método para calcular la cotización
+  vehiculo.calcularPrecio(tamanio, ventanas, lamina);
+  //Llamo al método para mostrar el resultado de la cotización
+  vehiculo.mostrarCotizacion(resultado);
 }
