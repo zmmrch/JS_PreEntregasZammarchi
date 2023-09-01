@@ -16,8 +16,8 @@ class Vehiculo {
   //Defino el método para calcular el precio
   calcularPrecio() {
     //Asigno una variable para usar de precio base en función del tipo de lámina
-    let precioLamina = this.lamina;
-    if (precioLamina == "Polarizado") {
+    let precioLamina = 0;
+    if (this.lamina == "Polarizado") {
       precioLamina = precioPolarizado;
     } else {
       precioLamina = precioAntiBandalico;
@@ -74,17 +74,28 @@ while (lamina != "Polarizado" && lamina != "Anti-bandálico") {
 //Instancio el objeto y lo guardo en una array
 const vehiculo = new Vehiculo(tamanio, ventanas, lamina);
 arrayVehiculos.push(vehiculo);
+vehiculo.calcularPrecio();
 
 //Recorro el array
-for (const vehiculo of arrayVehiculos) {
-  vehiculo.calcularPrecio();
-}
+//for (const vehiculo of arrayVehiculos) {
+//  vehiculo.calcularPrecio();
+//}
 
 //Mostramos el precio final
 if (tamanio == "Grande+" || tamanio == "Camiones") {
   alert("Para este tamaño, por favor comunicarse a ventas@hyperion.com.ar");
 } else {
-  alert(
-    "El total de la cotización por su vehículo es: ARS " + resultado + " + IVA"
-  );
+  for (const v of arrayVehiculos) {
+    alert(
+      "Ud. ha ingesado: Tamaño = " +
+        v.tamanio +
+        " ,Ventanas = " +
+        v.ventanas +
+        " ,Láminas = " +
+        v.lamina +
+        ". El total de la cotización por su vehículo es: ARS " +
+        resultado +
+        " + IVA"
+    );
+  }
 }
