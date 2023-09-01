@@ -76,11 +76,6 @@ const vehiculo = new Vehiculo(tamanio, ventanas, lamina);
 arrayVehiculos.push(vehiculo);
 vehiculo.calcularPrecio();
 
-//Recorro el array
-//for (const vehiculo of arrayVehiculos) {
-//  vehiculo.calcularPrecio();
-//}
-
 //Mostramos el precio final
 if (tamanio == "Grande+" || tamanio == "Camiones") {
   alert("Para este tamaño, por favor comunicarse a ventas@hyperion.com.ar");
